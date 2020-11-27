@@ -1,0 +1,55 @@
+EXE_INC = \
+    -I. \
+    -I./fluid \
+    -I./pcm \
+    -I./porousFluid \
+    -I./porousPCM \
+    -I./include \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/cfdTools \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/solidThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/chemistryModel/lnInclude \
+    -I$(LIB_SRC)/ODE/lnInclude \
+    -I$(LIB_SRC)/combustionModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude \
+    -I$(LIB_SRC)/radiationModels/lnInclude \
+    -I$(LIB_SRC)/regionModels/regionModel/lnInclude \
+    -I$(LIB_SRC)/transportModels/twoPhaseMixture/lnInclude \
+    -I$(LIB_SRC)/transportModels \
+    -I$(WM_PROJECT_USER_DIR)/src/RT/src/incompressible/lnInclude \
+    -I$(WM_PROJECT_USER_DIR)/src/RT/src/immiscibleIncompressibleTwoPhaseMixture/lnInclude \
+    -I$(LIB_SRC)/transportModels/interfaceProperties/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
+
+
+
+EXE_LIBS = \
+    -lcompressibleTransportModels \
+    -lfluidThermophysicalModels \
+    -lspecie \
+    -lreactionThermophysicalModels \
+    -lsolidThermo \
+    -lchemistryModel \
+    -lODE \
+    -lcombustionModels \
+    -lturbulenceModels \
+    -lcompressibleTurbulenceModels \
+    -lmeshTools \
+    -lfiniteVolume \
+    -lradiationModels \
+    -lfvOptions \
+    -lregionModels \
+    -lsampling \
+    -lturbulenceModels \
+    -lincompressibleTurbulenceModels \
+    -L$(FOAM_USER_LIBBIN) \
+    -limmiscibleIncompressibleTwoPhaseMixturePCM \
+

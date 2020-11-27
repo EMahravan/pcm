@@ -1,0 +1,4 @@
+fluid/compressibleCourantNo.C
+pcmFoam.C
+
+EXE = $(FOAM_USER_APPBIN)/pcmFoam
