@@ -35,7 +35,7 @@ SourceFiles
 #ifndef immiscibleIncompressibleTwoPhaseMixturePCM_H
 #define immiscibleIncompressibleTwoPhaseMixturePCM_H
 
-#include "incompressibleTwoPhaseMixture.H"
+#include "incompressibleTwoPhaseMixturePCM.H"
 #include "interfaceProperties.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -49,7 +49,7 @@ namespace Foam
 
 class immiscibleIncompressibleTwoPhaseMixturePCM
 :
-    public incompressibleTwoPhaseMixture,
+    public incompressibleTwoPhaseMixturePCM,
     public interfaceProperties
 {
 
@@ -75,7 +75,10 @@ public:
         //- Correct the transport and interface properties
         virtual void correct()
         {
-            incompressibleTwoPhaseMixture::correct();
+            Info<<"incompressibleTwoPhaseMixturePCM::correct();"<<endl;
+            int dum; cin>>dum;
+            incompressibleTwoPhaseMixturePCM::correct();
+            Info<<"interfaceProperties::correct();"<<endl;
             interfaceProperties::correct();
         }
 

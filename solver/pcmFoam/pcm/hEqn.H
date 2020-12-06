@@ -1,4 +1,7 @@
+
 solve
 (
-    fvm::ddt(Cp,T)+fvm::div(fvc::interpolate(Cp),T)==fvc::laplacian(k,T)
+    fvm::ddt(Cp,T)+Cp*fvm::div(phi,T)==fvc::laplacian(k,T)
 );
+
+

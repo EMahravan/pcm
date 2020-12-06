@@ -8,9 +8,9 @@ viscosityModels/HerschelBulkley/HerschelBulkley.C
 viscosityModels/Casson/Casson.C
 viscosityModels/strainRateFunction/strainRateFunction.C
 
-transportModel/transportModel.C
+transportModelPCM/transportModelPCM.C
 singlePhaseTransportModel/singlePhaseTransportModel.C
 
-incompressibleTwoPhaseMixture/incompressibleTwoPhaseMixture.C
+incompressibleTwoPhaseMixturePCM/incompressibleTwoPhaseMixturePCM.C
 
 LIB = $(FOAM_USER_LIBBIN)/libincompressibleTransportModelsPCM

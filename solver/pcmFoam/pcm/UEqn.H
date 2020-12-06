@@ -10,9 +10,9 @@
 
     fvOptions.constrain(UEqn);
 
-    const dimensionedScalar Amush("Amush",dimArea,100.);//In the second ref: 1e5. 
+    const dimensionedScalar Amush("Amush",UEqn.dimensions()/dimVelocity/dimVolume,100.);//In the second ref: 1e5. 
      
-    tmp<volVectorField> F
+    tmp<volVectorField> tF
     (
     new volVectorField
         (
@@ -23,9 +23,20 @@
                 mesh,
                 IOobject::READ_IF_PRESENT
             ),
-            Foam::sqr(1.-alpha1)/(Foam::pow(alpha1,3)+0.001)*Amush*U//In the second Ref it's negetive
+            -Foam::sqr(1.-alpha1)/(Foam::pow(alpha1,3)+0.001)*Amush*U//In the second Ref it's negetive
         )
     );
+    
+    volVectorField& F=tF.ref();
+    
+    //~ Info<<(fvc::reconstruct
+            //~ (
+                //~ (
+                  //~ - ghf*fvc::snGrad(rho)
+                  //~ - fvc::snGrad(p_rgh)
+                  
+                //~ ) * mesh.magSf()
+            //~ ))().dimensions()<<endl;
 
     if (pimple.momentumPredictor())
     {
@@ -40,8 +51,10 @@
                   - fvc::snGrad(p_rgh)
                   
                 ) * mesh.magSf()
-            )+ F
+            )-F
+           
         );
 
         fvOptions.correct(U);
     }
+Info<<"End of UEqn"<<endl;

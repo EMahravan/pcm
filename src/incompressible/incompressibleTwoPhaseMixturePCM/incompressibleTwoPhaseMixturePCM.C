@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "incompressibleTwoPhaseMixture.H"
+#include "incompressibleTwoPhaseMixturePCM.H"
 #include "addToRunTimeSelectionTable.H"
 #include "surfaceFields.H"
 #include "fvc.H"
@@ -32,13 +32,13 @@ License
 
 namespace Foam
 {
-    defineTypeNameAndDebug(incompressibleTwoPhaseMixture, 0);
+    defineTypeNameAndDebug(incompressibleTwoPhaseMixturePCM, 0);
 }
 
 
 // * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * * //
 
-void Foam::incompressibleTwoPhaseMixture::calcNu()
+void Foam::incompressibleTwoPhaseMixturePCM::calcNu()
 {
     nuModel1_->correct();
     nuModel2_->correct();
@@ -50,19 +50,33 @@ void Foam::incompressibleTwoPhaseMixture::calcNu()
     );
 
     // Average kinematic viscosity calculated from dynamic viscosity
+    Info<<"1"<<endl;
     nu_ = mu()/(limitedAlpha1*rho1_ + (scalar(1) - limitedAlpha1)*rho2_);
+    Info<<"2"<<endl;
     k_  = (limitedAlpha1*k1_ + (scalar(1) - limitedAlpha1)*k2_);
+    Info<<"3"<<endl;
     L_ = (limitedAlpha1*L1_ + (scalar(1) - limitedAlpha1)*L2_);
-    
+    Info<<"4"<<endl;
     {
         const volScalarField& T = nu_.mesh().lookupObject<volScalarField>("T");
-
+Info<<"5"<<endl;
         const dimensionedScalar deltaT2=(T2_-T1_)*(T2_-T1_);
+        Info<<"6"<<endl;
         const dimensionedScalar dnom=Foam::sqrt(deltaT2*Foam::acos(-1.));
+        Info<<"7"<<endl;
+        volScalarField DL=Foam::exp(
+                                      -Foam::pow( (T-T1_+dimensionedScalar("SMALL",T.dimensions(),SMALL)),2)
+                                      /deltaT2 
+                                    )
+                                    /(dnom)*L_;//In the second ref Eq. 9: \landa D
+        Info<<"cp1_ dims"<<cp1_.dimensions()<<endl;
+        Info<<"cp2_ dims"<<cp2_.dimensions()<<endl;
+        Info<<"DL dims"<<DL.dimensions()<<endl;
         
-        volScalarField DL=Foam::exp(-(T-T1_+SMALL)/deltaT2)/(dnom)*L_;//In the second ref Eq. 9: \landa D
-        
-        Cp_ = (limitedAlpha1*(rho1_*cp1_) + (scalar(1) - limitedAlpha1)*(rho2_*cp2_))+DL;
+        Cp_ = 
+                (limitedAlpha1*(rho1_*cp1_) + (scalar(1) - limitedAlpha1)*(rho2_*cp2_))+
+                (limitedAlpha1* rho1_       + (scalar(1) - limitedAlpha1)*rho2_       )*DL;//Discuss this one
+        Info<<"9"<<endl;
     }
     
     
@@ -71,7 +85,7 @@ void Foam::incompressibleTwoPhaseMixture::calcNu()
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
+Foam::incompressibleTwoPhaseMixturePCM::incompressibleTwoPhaseMixturePCM
 (
     const volVectorField& U,
     const surfaceScalarField& phi
@@ -152,7 +166,7 @@ Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
     (
         IOobject
         (
-            "k",
+            "kappa",
             U_.time().timeName(),
             U_.db()
         ),
@@ -169,19 +183,19 @@ Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
             U_.db()
         ),
         U_.mesh(),
-        dimensionedScalar(dimPower/dimLength/dimTemperature, 0),
+        dimensionedScalar(dimEnergy/dimMass, 0),
         calculatedFvPatchScalarField::typeName
     )
 {
     calcNu();
-    Info<<"incompressibleTwoPhaseMixture done"<<endl;
+    Info<<"incompressibleTwoPhaseMixturePCM done"<<endl;
 }
 
 
 // * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * * //
 
 Foam::tmp<Foam::volScalarField>
-Foam::incompressibleTwoPhaseMixture::mu() const
+Foam::incompressibleTwoPhaseMixturePCM::mu() const
 {
     const volScalarField limitedAlpha1
     (
@@ -198,7 +212,7 @@ Foam::incompressibleTwoPhaseMixture::mu() const
 
 
 Foam::tmp<Foam::surfaceScalarField>
-Foam::incompressibleTwoPhaseMixture::muf() const
+Foam::incompressibleTwoPhaseMixturePCM::muf() const
 {
     const surfaceScalarField alpha1f
     (
@@ -215,7 +229,7 @@ Foam::incompressibleTwoPhaseMixture::muf() const
 
 
 Foam::tmp<Foam::surfaceScalarField>
-Foam::incompressibleTwoPhaseMixture::nuf() const
+Foam::incompressibleTwoPhaseMixturePCM::nuf() const
 {
     const surfaceScalarField alpha1f
     (
@@ -233,7 +247,7 @@ Foam::incompressibleTwoPhaseMixture::nuf() const
 }
 
 
-bool Foam::incompressibleTwoPhaseMixture::read()
+bool Foam::incompressibleTwoPhaseMixturePCM::read()
 {
     if (regIOobject::read())
     {

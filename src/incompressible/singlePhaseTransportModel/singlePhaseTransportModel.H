@@ -38,7 +38,7 @@ SourceFiles
 #ifndef singlePhaseTransportModel_H
 #define singlePhaseTransportModel_H
 
-#include "incompressible/transportModel/transportModel.H"
+#include "incompressible/transportModelPCM/transportModelPCM.H"
 #include "IOdictionary.H"
 #include "autoPtr.H"
 
@@ -56,7 +56,7 @@ class viscosityModel;
 class singlePhaseTransportModel
 :
     public IOdictionary,
-    public transportModel
+    public transportModelPCM
 {
     // Private Data
 

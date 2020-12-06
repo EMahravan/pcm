@@ -35,7 +35,7 @@ immiscibleIncompressibleTwoPhaseMixturePCM
     const surfaceScalarField& phi
 )
 :
-    incompressibleTwoPhaseMixture(U, phi),
+    incompressibleTwoPhaseMixturePCM(U, phi),
     interfaceProperties(alpha1(), U, *this)
 {}
 
@@ -45,7 +45,7 @@ immiscibleIncompressibleTwoPhaseMixturePCM
 bool Foam::immiscibleIncompressibleTwoPhaseMixturePCM::read()
 {
     return
-        incompressibleTwoPhaseMixture::read()
+        incompressibleTwoPhaseMixturePCM::read()
      && interfaceProperties::read();
 }
 

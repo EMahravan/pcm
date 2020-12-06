@@ -23,31 +23,31 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "transportModel.H"
+#include "transportModelPCM.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
 {
-    defineTypeNameAndDebug(transportModel, 0);
+    defineTypeNameAndDebug(transportModelPCM, 0);
 }
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::transportModel::transportModel()
+Foam::transportModelPCM::transportModelPCM()
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::transportModel::~transportModel()
+Foam::transportModelPCM::~transportModelPCM()
 {}
 
 
 // * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * * //
 
-bool Foam::transportModel::read()
+bool Foam::transportModelPCM::read()
 {
     return true;
 }

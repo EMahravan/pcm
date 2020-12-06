@@ -57,8 +57,9 @@ surfaceScalarField phiPCM
     ),
     fvc::flux(UPCM)
 );
-
+Info<<"Calling for making immiscibleIncompressibleTwoPhaseMixturePCM"<<endl;
 immiscibleIncompressibleTwoPhaseMixturePCM mixturePCM(UPCM, phiPCM);
+
 
 volScalarField& alpha1PCM(mixturePCM.alpha1());
 volScalarField& alpha2PCM(mixturePCM.alpha2());
@@ -69,7 +70,8 @@ const dimensionedScalar& rhoPCM2 = mixturePCM.rho2();
 const volScalarField& nuPCM = mixturePCM.nu();
 const volScalarField& kPCM = mixturePCM.k();
 const volScalarField& LPCM = mixturePCM.L();
-
+Info<<"kPCM name is"<<kPCM.name()<<endl;
+int dum; cin>>dum;
 // Need to store rho for ddt(rho, U)
 volScalarField rhoPCM
 (

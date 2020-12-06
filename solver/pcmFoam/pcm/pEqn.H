@@ -72,4 +72,7 @@
     }
     
     rAU.clear();
+    
 }
+
+tF.clear();

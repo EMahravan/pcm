@@ -22,20 +22,20 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::incompressibleTwoPhaseMixture
+    Foam::incompressibleTwoPhaseMixturePCM
 
 Description
     A two-phase incompressible transportModel
 
 SourceFiles
-    incompressibleTwoPhaseMixture.C
+    incompressibleTwoPhaseMixturePCM.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef incompressibleTwoPhaseMixture_H
-#define incompressibleTwoPhaseMixture_H
+#ifndef incompressibleTwoPhaseMixturePCM_H
+#define incompressibleTwoPhaseMixturePCM_H
 
-#include "incompressible/transportModel/transportModel.H"
+#include "incompressible/transportModelPCM/transportModelPCM.H"
 #include "incompressible/viscosityModels/viscosityModel/viscosityModel.H"
 #include "twoPhaseMixture.H"
 #include "IOdictionary.H"
@@ -47,13 +47,13 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                      Class incompressibleTwoPhaseMixture Declaration
+                      Class incompressibleTwoPhaseMixturePCM Declaration
 \*---------------------------------------------------------------------------*/
 
-class incompressibleTwoPhaseMixture
+class incompressibleTwoPhaseMixturePCM
 :
     public IOdictionary,
-    public transportModel,
+    public transportModelPCM,
     public twoPhaseMixture
 {
 protected:
@@ -91,13 +91,13 @@ protected:
 
 public:
 
-    TypeName("incompressibleTwoPhaseMixture");
+    TypeName("incompressibleTwoPhaseMixturePCM");
 
 
     // Constructors
 
         //- Construct from components
-        incompressibleTwoPhaseMixture
+        incompressibleTwoPhaseMixturePCM
         (
             const volVectorField& U,
             const surfaceScalarField& phi
@@ -105,7 +105,7 @@ public:
 
 
     //- Destructor
-    virtual ~incompressibleTwoPhaseMixture()
+    virtual ~incompressibleTwoPhaseMixturePCM()
     {}
 
 
