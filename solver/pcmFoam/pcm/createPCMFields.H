@@ -57,8 +57,8 @@ surfaceScalarField phiPCM
     ),
     fvc::flux(UPCM)
 );
-Info<<"Calling for making immiscibleIncompressibleTwoPhaseMixturePCM"<<endl;
-immiscibleIncompressibleTwoPhaseMixturePCM mixturePCM(UPCM, phiPCM);
+Info<<"Calling for making immiscibleIncompressibleTwoPhaseMixture"<<endl;
+immiscibleIncompressibleTwoPhaseMixture mixturePCM(UPCM, phiPCM);
 
 
 volScalarField& alpha1PCM(mixturePCM.alpha1());

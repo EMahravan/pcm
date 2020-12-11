@@ -23,11 +23,13 @@ EXE_INC = \
     -I$(LIB_SRC)/regionModels/regionModel/lnInclude \
     -I$(LIB_SRC)/transportModels/twoPhaseMixture/lnInclude \
     -I$(LIB_SRC)/transportModels \
-    -I$(WM_PROJECT_USER_DIR)/src/RT/src/incompressible/lnInclude \
-    -I$(WM_PROJECT_USER_DIR)/src/RT/src/immiscibleIncompressibleTwoPhaseMixture/lnInclude \
-    -I$(LIB_SRC)/transportModels/interfaceProperties/lnInclude \
+    -I../../src/incompressible/lnInclude \
+    -I../../src/ \
+    -I../../src/immiscibleIncompressibleTwoPhaseMixture/lnInclude/ \
+    -I../../src/interfacePropertiesPCM/lnInclude \
     -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
-    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I../../src/TurbulenceModels/incompressible/lnInclude \
 
 
 
@@ -49,7 +51,8 @@ EXE_LIBS = \
     -lregionModels \
     -lsampling \
     -lturbulenceModels \
-    -lincompressibleTurbulenceModels \
     -L$(FOAM_USER_LIBBIN) \
     -limmiscibleIncompressibleTwoPhaseMixturePCM \
+    -lincompressibleTurbulenceModelsPCM \
+    
 

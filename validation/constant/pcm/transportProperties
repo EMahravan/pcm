@@ -1,0 +1,44 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant/fluid";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+phases (solid liquid);//In cp calculation it is assumed that solid is the first phase
+
+solid
+{
+    transportModel  Newtonian;
+    nu              1;
+    rho             940.0;
+    cp              1940.0;         
+    L               202000.0;         
+    k               0.25;         
+    T               301.6;         
+}
+
+liquid
+{
+    transportModel  Newtonian;
+    nu              4.76433121019e-06;
+    rho             785.0;
+    cp              1770.0;         
+    L               0.;         
+    k               0.15;         
+    T               302.4;  
+}
+
+sigma            0.07;//No effect
+
+// ************************************************************************* //

@@ -1,16 +1,17 @@
-viscosityModels/viscosityModel/viscosityModel.C
-viscosityModels/viscosityModel/viscosityModelNew.C
-viscosityModels/Newtonian/Newtonian.C
-viscosityModels/powerLaw/powerLaw.C
-viscosityModels/CrossPowerLaw/CrossPowerLaw.C
-viscosityModels/BirdCarreau/BirdCarreau.C
-viscosityModels/HerschelBulkley/HerschelBulkley.C
-viscosityModels/Casson/Casson.C
-viscosityModels/strainRateFunction/strainRateFunction.C
+viscosityModelsPCM/viscosityModelPCM/viscosityModelPCM.C
+viscosityModelsPCM/viscosityModelPCM/viscosityModelPCMNew.C
+viscosityModelsPCM/Newtonian/Newtonian.C
+viscosityModelsPCM/powerLaw/powerLaw.C
+viscosityModelsPCM/CrossPowerLaw/CrossPowerLaw.C
+viscosityModelsPCM/BirdCarreau/BirdCarreau.C
+viscosityModelsPCM/HerschelBulkley/HerschelBulkley.C
+viscosityModelsPCM/Casson/Casson.C
+viscosityModelsPCM/strainRateFunction/strainRateFunction.C
 
 transportModelPCM/transportModelPCM.C
-singlePhaseTransportModel/singlePhaseTransportModel.C
+singlePhaseTransportModelPCM/singlePhaseTransportModel.C
 
 incompressibleTwoPhaseMixturePCM/incompressibleTwoPhaseMixturePCM.C
 
 LIB = $(FOAM_USER_LIBBIN)/libincompressibleTransportModelsPCM
+

@@ -1,0 +1,1 @@
+LIB = $(PWD)/../platforms/$(WM_OPTIONS)/lib/libheatFlux_60ac32bccca12931f534489ff3426ea8b6153521

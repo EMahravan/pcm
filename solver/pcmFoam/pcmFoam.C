@@ -43,7 +43,7 @@ Description
 #include "coordinateSystem.H"
 #include "pimpleMultiRegionControl.H"
 #include "pressureControl.H"
-#include "immiscibleIncompressibleTwoPhaseMixturePCM.H"
+#include "immiscibleIncompressibleTwoPhaseMixture.H"
 #include "turbulentTransportModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

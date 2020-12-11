@@ -29,25 +29,25 @@ License
 
 namespace Foam
 {
-    defineTypeNameAndDebug(transportModelPCM, 0);
+    defineTypeNameAndDebug(transportModel, 0);
 }
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::transportModelPCM::transportModelPCM()
+Foam::transportModel::transportModel()
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::transportModelPCM::~transportModelPCM()
+Foam::transportModel::~transportModel()
 {}
 
 
 // * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * * //
 
-bool Foam::transportModelPCM::read()
+bool Foam::transportModel::read()
 {
     return true;
 }

@@ -22,22 +22,23 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::incompressibleTwoPhaseMixturePCM
+    Foam::incompressibleTwoPhaseMixture
 
 Description
     A two-phase incompressible transportModel
 
 SourceFiles
-    incompressibleTwoPhaseMixturePCM.C
+    incompressibleTwoPhaseMixture.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef incompressibleTwoPhaseMixturePCM_H
-#define incompressibleTwoPhaseMixturePCM_H
+#ifndef incompressibleTwoPhaseMixture_H
+#define incompressibleTwoPhaseMixture_H
 
-#include "incompressible/transportModelPCM/transportModelPCM.H"
-#include "incompressible/viscosityModels/viscosityModel/viscosityModel.H"
+#include "../transportModelPCM/transportModelPCM.H"
+#include "../viscosityModelsPCM/viscosityModelPCM/viscosityModelPCM.H"
 #include "twoPhaseMixture.H"
+//~ #include "incompressible/../twoPhaseMixturePCM/lnInclude/twoPhaseMixturePCM.H"
 #include "IOdictionary.H"
 
 
@@ -47,21 +48,21 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                      Class incompressibleTwoPhaseMixturePCM Declaration
+                      Class incompressibleTwoPhaseMixture Declaration
 \*---------------------------------------------------------------------------*/
 
-class incompressibleTwoPhaseMixturePCM
+class incompressibleTwoPhaseMixture
 :
     public IOdictionary,
-    public transportModelPCM,
+    public transportModel,
     public twoPhaseMixture
 {
 protected:
 
     // Protected data
 
-        autoPtr<viscosityModel> nuModel1_;
-        autoPtr<viscosityModel> nuModel2_;
+        autoPtr<viscosityModelPCM> nuModel1_;
+        autoPtr<viscosityModelPCM> nuModel2_;
 
         dimensionedScalar rho1_;
         dimensionedScalar rho2_;
@@ -91,13 +92,13 @@ protected:
 
 public:
 
-    TypeName("incompressibleTwoPhaseMixturePCM");
+    TypeName("incompressibleTwoPhaseMixture");
 
 
     // Constructors
 
         //- Construct from components
-        incompressibleTwoPhaseMixturePCM
+        incompressibleTwoPhaseMixture
         (
             const volVectorField& U,
             const surfaceScalarField& phi
@@ -105,20 +106,20 @@ public:
 
 
     //- Destructor
-    virtual ~incompressibleTwoPhaseMixturePCM()
+    virtual ~incompressibleTwoPhaseMixture()
     {}
 
 
     // Member Functions
 
-        //- Return const-access to phase1 viscosityModel
-        const viscosityModel& nuModel1() const
+        //- Return const-access to phase1 viscosityModelPCM
+        const viscosityModelPCM& nuModel1() const
         {
             return nuModel1_();
         }
 
-        //- Return const-access to phase2 viscosityModel
-        const viscosityModel& nuModel2() const
+        //- Return const-access to phase2 viscosityModelPCM
+        const viscosityModelPCM& nuModel2() const
         {
             return nuModel2_();
         }

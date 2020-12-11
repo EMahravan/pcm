@@ -32,17 +32,17 @@ License
 
 namespace Foam
 {
-    defineTypeNameAndDebug(incompressibleTwoPhaseMixturePCM, 0);
+    defineTypeNameAndDebug(incompressibleTwoPhaseMixture, 0);
 }
 
 
 // * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * * //
 
-void Foam::incompressibleTwoPhaseMixturePCM::calcNu()
+void Foam::incompressibleTwoPhaseMixture::calcNu()
 {
     nuModel1_->correct();
     nuModel2_->correct();
-
+Info<<"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"<<endl;
     const volScalarField limitedAlpha1
     (
         "limitedAlpha1",
@@ -85,7 +85,7 @@ Info<<"5"<<endl;
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::incompressibleTwoPhaseMixturePCM::incompressibleTwoPhaseMixturePCM
+Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
 (
     const volVectorField& U,
     const surfaceScalarField& phi
@@ -106,7 +106,7 @@ Foam::incompressibleTwoPhaseMixturePCM::incompressibleTwoPhaseMixturePCM
 
     nuModel1_
     (
-        viscosityModel::New
+        viscosityModelPCM::New
         (
             "nu1",
             subDict(phase1Name_),
@@ -116,7 +116,7 @@ Foam::incompressibleTwoPhaseMixturePCM::incompressibleTwoPhaseMixturePCM
     ),
     nuModel2_
     (
-        viscosityModel::New
+        viscosityModelPCM::New
         (
             "nu2",
             subDict(phase2Name_),
@@ -188,15 +188,16 @@ Foam::incompressibleTwoPhaseMixturePCM::incompressibleTwoPhaseMixturePCM
     )
 {
     calcNu();
-    Info<<"incompressibleTwoPhaseMixturePCM done"<<endl;
+    Info<<"incompressibleTwoPhaseMixture done"<<endl;
 }
 
 
 // * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * * //
 
 Foam::tmp<Foam::volScalarField>
-Foam::incompressibleTwoPhaseMixturePCM::mu() const
+Foam::incompressibleTwoPhaseMixture::mu() const
 {
+    Info<<"\n===========================================================+"<<endl;
     const volScalarField limitedAlpha1
     (
         min(max(alpha1_, scalar(0)), scalar(1))
@@ -212,8 +213,9 @@ Foam::incompressibleTwoPhaseMixturePCM::mu() const
 
 
 Foam::tmp<Foam::surfaceScalarField>
-Foam::incompressibleTwoPhaseMixturePCM::muf() const
+Foam::incompressibleTwoPhaseMixture::muf() const
 {
+    Info<<"\n---------------------------------------------------------"<<endl;
     const surfaceScalarField alpha1f
     (
         min(max(fvc::interpolate(alpha1_), scalar(0)), scalar(1))
@@ -229,7 +231,7 @@ Foam::incompressibleTwoPhaseMixturePCM::muf() const
 
 
 Foam::tmp<Foam::surfaceScalarField>
-Foam::incompressibleTwoPhaseMixturePCM::nuf() const
+Foam::incompressibleTwoPhaseMixture::nuf() const
 {
     const surfaceScalarField alpha1f
     (
@@ -247,7 +249,7 @@ Foam::incompressibleTwoPhaseMixturePCM::nuf() const
 }
 
 
-bool Foam::incompressibleTwoPhaseMixturePCM::read()
+bool Foam::incompressibleTwoPhaseMixture::read()
 {
     if (regIOobject::read())
     {

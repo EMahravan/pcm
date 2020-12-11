@@ -22,19 +22,19 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::transportModelPCM
+    Foam::transportModel
 
 Description
     Base-class for all transport models used by the incompressible turbulence
     models.
 
 SourceFiles
-    transportModelPCM.C
+    transportModel.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef transportModelPCM_H
-#define transportModelPCM_H
+#ifndef transportModel_H
+#define transportModel_H
 
 #include "primitiveFieldsFwd.H"
 #include "volFieldsFwd.H"
@@ -46,29 +46,29 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                Class transportModelPCM Declaration
+                Class transportModel Declaration
 \*---------------------------------------------------------------------------*/
 
-class transportModelPCM
+class transportModel
 {
 public:
 
     //- Runtime type information
-    TypeName("transportModelPCM");
+    TypeName("transportModel");
 
 
     // Constructors
 
         //- Construct from components
-        transportModelPCM
+        transportModel
         ();
 
         //- Disallow default bitwise copy construction
-        transportModelPCM(const transportModelPCM&);
+        transportModel(const transportModel&);
 
 
     //- Destructor
-    virtual ~transportModelPCM();
+    virtual ~transportModel();
 
 
     // Member Functions
@@ -89,7 +89,7 @@ public:
     // Member Operators
 
         //- Disallow default bitwise assignment
-        void operator=(const transportModelPCM&) = delete;
+        void operator=(const transportModel&) = delete;
 };
 
 

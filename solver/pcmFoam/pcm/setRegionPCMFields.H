@@ -4,7 +4,7 @@
     surfaceScalarField& rhoPhi=rhoPhiPCM;
 
     autoPtr<incompressible::turbulenceModel>& turbulence = turbulencePCM;
-    immiscibleIncompressibleTwoPhaseMixturePCM& mixture=mixturePCM;
+    immiscibleIncompressibleTwoPhaseMixture& mixture=mixturePCM;
 
     volScalarField& p = pPCM;
     const volScalarField& Cp = CpPCM;
