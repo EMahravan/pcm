@@ -1,70 +1,0 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Version:  7
-     \\/     M anipulation  |
-\*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      binary;
-    class       volScalarField;
-    location    "3/air";
-    object      qr;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-dimensions      [1 0 -3 0 0 0 0];
-
-internalField   uniform 0;
-
-boundaryField
-{
-    airLeft
-    {
-        type            calculated;
-        value           nonuniform List<scalar> 
-40
-(kÇ @∫?÷ø»Yÿ¬À>÷ø®¿v◊=÷ø∆Üê›<÷ø„ß\Eﬁ;÷øì`ı Ÿ:÷ø/∑tW–9÷øãh!¬8÷ø87ª_Ø7÷ø√ÆIò6÷øÙú…}5÷øT’˛]4÷ø@ÈÀ9;3÷øÑ;–ˇ2÷øH©"âÎ0÷øÉ@ø/÷ø«è.÷øØ¬:Ï]-÷ø–1∂),÷øOõê\Û*÷øw€ª)÷øÚªÅ(÷øÜÚ∆´E'÷øÊÿOÛ&÷ø.ﬂT-À$÷ø´Âxêå#÷ø+¯RM"÷ø'!ù™!÷øÑ∑ÃÕ÷øÆ3Óç÷ø˛é‰BN÷ø’∏“˛÷ø·g⁄T–÷ø˜÷Mwí÷øC% óU÷øÉ.Á÷ø;sëïﬂ÷øÔ–;“¶÷øOùÀo÷øuÁCØ:÷ø);
-    }
-    airBottom
-    {
-        type            calculated;
-        value           nonuniform 
-0
-;
-    }
-    airTop
-    {
-        type            calculated;
-        value           nonuniform 
-0
-;
-    }
-    frontAndBack
-    {
-        type            empty;
-    }
-    air_to_pcm
-    {
-        type            calculated;
-        value           nonuniform List<scalar> 
-40
-(E#k&“Çn@m ˝t|SÁ?)ô't´ô∂øHó˘”øò˝|N¬◊ø¨æâæÙtÿør¬$xÆZÿørÁ∂Xÿø˘5Á4¯¿◊ø¡j4±w◊ø™6#«:◊øÌÉﬂD◊øë7&÷÷ønm˝™÷øÒ¢ÕÖ÷ø2£∫J`÷ø"ëcé1>÷øÍV≈qô÷øoU∞l1ˆ’øÉt¶˘m–’ø¿ K¡˙´’øˆöDŸ\Ö’øgõ7™”^’øœ§/Ö6’ø#a;S’ø–ÕÂÛ„‘ø·¶Êv≠π‘øÀ_ë‘øµÄägÙn‘øFGﬁ:ÌX‘øË==«V‘øä1Qm|‘ø å]2È‘ø>W:ƒ¨Ò’ø3⁄i*)^ÿøu?yÑègﬁø¡so£∏*Áø<∆Íë∞ˆø‚˙jÌ
-¿´O∂$¿);
-    }
-    procBoundary2to0
-    {
-        type            processor;
-        value           uniform 0;
-    }
-    procBoundary2to1
-    {
-        type            processor;
-        value           uniform 0;
-    }
-}
-
-
-// ************************************************************************* //
