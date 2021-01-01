@@ -29,7 +29,7 @@ divSchemes
 {
     default         none;
 
-    div(phi,U)      Gauss upwind;
+    div(phi,U)      Gauss vanLeer;
     div(phi,K)      Gauss linear;
     div(phi,h)      Gauss upwind;
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
@@ -37,7 +37,7 @@ divSchemes
 
 laplacianSchemes
 {
-    default         Gauss linear corrected;
+    default         Gauss linear orthogonal;
 }
 
 interpolationSchemes
@@ -47,7 +47,7 @@ interpolationSchemes
 
 snGradSchemes
 {
-    default         corrected;
+    default         orthogonal;
 }
 
 // ************************************************************************* //

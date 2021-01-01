@@ -71,8 +71,4 @@
         p_rgh = p - rho*gh;
     }
     
-    rAU.clear();
-    
 }
-
-tF.clear();

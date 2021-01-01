@@ -4,14 +4,14 @@ import os
 import sys
 #########################################################################################################################
 #Based on Huang 2007
-print "Hi Dear research Team. This is automated tutorial creator. \nGood luck"
+print ("Hi Dear research Team. This is automated tutorial creator. \nGood luck")
 g=9.81
 #Geometry inputs
-airXLength=1.
-airYLength=1.
+airXLength=0.3
+airYLength=0.3
 airZLength=0.1*airXLength
 
-pcmXLength=0.2
+pcmXLength=0.01
 pcmYLength=airYLength
 pcmZLength=airZLength
 
@@ -31,8 +31,8 @@ pcmLiqT=29.4+273
 pcmSolT=28.6+273
 pcmLiqK=0.15
 pcmSolK=0.25
-pcmLiqCp=1770.
-pcmSolCp=1940.
+pcmLiqCp=1940.
+pcmSolCp=1770.
 pcmLiqRho=785.
 pcmSolRho=940.
 pcmLiqMu=3.74e-3
@@ -68,18 +68,19 @@ ZMIN=-airZLength*0.5
 ZMAX=ZMIN+airZLength
 
 #Time Settings
-DELTAT=0.75
-ENDTIME=120
-WRITEINTERVAL=0.75
+DELTAT=0.05
+ENDTIME=21600
+WRITEINTERVAL=10
 
 #Number of processors
-NProcessor=3
+NProcessor=4
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-print 'Properies are:'
-print 'Sol: T0=',pcmInitialT,'  k=',pcmSolK,'  cp=',pcmSolCp,'  rho=',pcmLiqRho,'  nu=',pcmLiqNu
-print 'Liq: T0=',pcmInitialT,'  k=',pcmLiqK,'  cp=',pcmLiqCp,'  rho=',pcmSolRho,'  nu=',1
-print 'AIR: T0=',airInitialT,'  k=',airk   ,'  cp=',airCp   ,'  rho=',airRho   ,'  nu=',airNu,'  Pr=',airPR
+print ('Properies are:')
+print ('Sol: T0=',pcmInitialT,'  k=',pcmSolK,'  cp=',pcmSolCp,'  rho=',pcmLiqRho,'  nu=',pcmLiqNu)
+print ('Liq: T0=',pcmInitialT,'  k=',pcmLiqK,'  cp=',pcmLiqCp,'  rho=',pcmSolRho,'  nu=',1)
+print ('AIR: T0=',airInitialT,'  k=',airk   ,'  cp=',airCp   ,'  rho=',airRho   ,'  nu=',airNu,'  Pr=',airPR)
+print ('Initial air pressure: ',airRho*airInitialT*(8314./airMolWeight))
 # ~ print 'Ra (air): ',g*AirBeta*fluxRightPcm*(YMAXpCM-YMINpCM)**4/(airNu*airAlpha*airk)
 # ~ print 'Ste (pcm): ',pcmLiqCp*fluxRightPcm/((XMAXpCM-XMINpCM)*pcmLiqK*pcmLatentHeat)
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -87,10 +88,10 @@ print 'AIR: T0=',airInitialT,'  k=',airk   ,'  cp=',airCp   ,'  rho=',airRho   ,
 #########################################################################################################################
 case="."
 
-print "Current directory is: "
+print ("Current directory is: ")
 os.system('pwd')
-print "WARNING: every previous results in the current directory may be deleted, so answer carefully\n"
-print "Do you want to restart the simulation? yes/no "
+print ("WARNING: every previous results in the current directory may be deleted, so answer carefully\n")
+print ("Do you want to restart the simulation? yes/no ")
 answer=input()
 
 startFrom="firstTime"
@@ -102,7 +103,7 @@ elif(answer == "yes"):
     os.system('rm -rf '+ case+'/0 '+case+'/log.* ')
     os.system('cp -r '+ case+'/0.orig '+ case+'/0')
 else:
-   print "!!!!! The answer is ",answer," and not accepted !!!!!"
+   print ("!!!!! The answer is ",answer," and not accepted !!!!!")
    exit()
 
 latesTime=0.
@@ -204,5 +205,5 @@ if (startFrom=="firstTime"):
     os.system('echo running decomposePar -force...')
     os.system('decomposePar -case '+ case+'  -allRegions -force > '+case+'/log.decomposePar')
 
-print 'The case is ready, you can run it by: \n'+'mpirun -np '+str(NProcessor)+' pcmFoam -parallel -case '+ case+' >& '+case+'/log.pcmFoam'
+print ('The case is ready, you can run it by: \n'+'mpirun -np '+str(NProcessor)+' pcmFoam -parallel -case '+ case+' >& '+case+'/log.pcmFoam')
 # ~ os.system('mpirun -np '+str(NProcessor)+' IBDRPimpleFoam -parallel -case '+ case+' >& '+case+'/log.IBDRPimpleFoam')

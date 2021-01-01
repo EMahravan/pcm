@@ -18,9 +18,9 @@
       - fvm::laplacian(turbulence.alphaEff(), he)
      ==
         rho*(U&g)
-      + rad.Sh(thermo, he)
-      + reaction.Qdot()
-      + fvOptions(rho, he)
+      //~ + rad.Sh(thermo, he)
+      //~ + reaction.Qdot()
+      //~ + fvOptions(rho, he)
     );
 
     EEqn.relax();
@@ -32,7 +32,7 @@
     fvOptions.correct(he);
 
     thermo.correct();
-    rad.correct();
+    //~ rad.correct();
 
     Info<< "Min/max T:" << min(thermo.T()).value() << ' '
         << max(thermo.T()).value() << endl;

@@ -32,7 +32,8 @@ solvers
         solver           GAMG;
         smoother         symGaussSeidel;
         tolerance        1e-7;
-        relTol           0.01;
+        relTol           0.001;
+        maxIter          100;
     }
 
     p_rghFinal
@@ -52,7 +53,8 @@ solvers
         solver           PBiCGStab;
         preconditioner   DILU;
         tolerance        1e-7;
-        relTol           0.1;
+        relTol           0.001;
+        maxIter          100;
     }
 
     "(|U|h)Final"
@@ -64,7 +66,8 @@ solvers
 
 PIMPLE
 {
-    momentumPredictor   yes;
+    momentumPredictor   no;
+    nCorrector          2;
 }
 
 relaxationFactors

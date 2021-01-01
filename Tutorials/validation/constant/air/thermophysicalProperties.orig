@@ -21,15 +21,13 @@ thermoType
     mixture         pureMixture;
     transport       const;
     thermo          hConst;
-    equationOfState rhoConst;
+    equationOfState perfectGas;
     specie          specie;
     energy          sensibleEnthalpy;
 }
 
 mixture
 {
-    // Water
-
     specie
     {
         molWeight       MOLWEIGHT;

@@ -20,7 +20,7 @@ phases (solid liquid);//In cp calculation it is assumed that solid is the first 
 solid
 {
     transportModel  Newtonian;
-    nu              1;
+    nu              1e-5;
     rho             rhoSOLID;
     cp              cpSOLID;         
     L               LSOLID;         

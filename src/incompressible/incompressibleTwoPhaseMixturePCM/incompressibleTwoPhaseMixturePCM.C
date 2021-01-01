@@ -42,7 +42,7 @@ void Foam::incompressibleTwoPhaseMixture::calcNu()
 {
     nuModel1_->correct();
     nuModel2_->correct();
-Info<<"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"<<endl;
+
     const volScalarField limitedAlpha1
     (
         "limitedAlpha1",
@@ -50,33 +50,29 @@ Info<<"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"<<endl;
     );
 
     // Average kinematic viscosity calculated from dynamic viscosity
-    Info<<"1"<<endl;
+
     nu_ = mu()/(limitedAlpha1*rho1_ + (scalar(1) - limitedAlpha1)*rho2_);
-    Info<<"2"<<endl;
-    k_  = (limitedAlpha1*k1_ + (scalar(1) - limitedAlpha1)*k2_);
-    Info<<"3"<<endl;
+
+    k_  == (limitedAlpha1*k1_ + (scalar(1) - limitedAlpha1)*k2_);
+
     L_ = (limitedAlpha1*L1_ + (scalar(1) - limitedAlpha1)*L2_);
-    Info<<"4"<<endl;
+
     {
         const volScalarField& T = nu_.mesh().lookupObject<volScalarField>("T");
-Info<<"5"<<endl;
+
         const dimensionedScalar deltaT2=(T2_-T1_)*(T2_-T1_);
-        Info<<"6"<<endl;
+
         const dimensionedScalar dnom=Foam::sqrt(deltaT2*Foam::acos(-1.));
-        Info<<"7"<<endl;
+
         volScalarField DL=Foam::exp(
                                       -Foam::pow( (T-T1_+dimensionedScalar("SMALL",T.dimensions(),SMALL)),2)
                                       /deltaT2 
                                     )
-                                    /(dnom)*L_;//In the second ref Eq. 9: \landa D
-        Info<<"cp1_ dims"<<cp1_.dimensions()<<endl;
-        Info<<"cp2_ dims"<<cp2_.dimensions()<<endl;
-        Info<<"DL dims"<<DL.dimensions()<<endl;
-        
+                                    /(dnom)*L_;//In the second ref Eq. 9: \landa D        
         Cp_ = 
                 (limitedAlpha1*(rho1_*cp1_) + (scalar(1) - limitedAlpha1)*(rho2_*cp2_))+
                 (limitedAlpha1* rho1_       + (scalar(1) - limitedAlpha1)*rho2_       )*DL;//Discuss this one
-        Info<<"9"<<endl;
+
     }
     
     
@@ -188,6 +184,7 @@ Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
     )
 {
     calcNu();
+
     Info<<"incompressibleTwoPhaseMixture done"<<endl;
 }
 
@@ -197,7 +194,6 @@ Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
 Foam::tmp<Foam::volScalarField>
 Foam::incompressibleTwoPhaseMixture::mu() const
 {
-    Info<<"\n===========================================================+"<<endl;
     const volScalarField limitedAlpha1
     (
         min(max(alpha1_, scalar(0)), scalar(1))
@@ -215,7 +211,6 @@ Foam::incompressibleTwoPhaseMixture::mu() const
 Foam::tmp<Foam::surfaceScalarField>
 Foam::incompressibleTwoPhaseMixture::muf() const
 {
-    Info<<"\n---------------------------------------------------------"<<endl;
     const surfaceScalarField alpha1f
     (
         min(max(fvc::interpolate(alpha1_), scalar(0)), scalar(1))

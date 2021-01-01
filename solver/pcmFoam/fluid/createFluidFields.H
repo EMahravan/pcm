@@ -259,3 +259,5 @@ forAll(fluidRegions, i)
 
     turbulenceFluid[i].validate();
 }
+//~ Info<<"max and min p_rghFluid:"<<gMax(p_rghFluid[0])<<","<<gMin(p_rghFluid[0])<<endl;
+//~ {int dum; cin>>dum;}

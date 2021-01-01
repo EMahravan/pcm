@@ -10,14 +10,14 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volVectorField;
-    location    "0/fluid";
+    location    "0/air";
     object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [ 0 1 -1 0 0 0 0 ];
 
-internalField   uniform (0 0 1e-3);
+internalField   uniform (0 0 0);
 
 boundaryField
 {

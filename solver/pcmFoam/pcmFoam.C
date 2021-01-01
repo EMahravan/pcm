@@ -57,9 +57,10 @@ int main(int argc, char *argv[])
     #include "setRootCaseLists.H"
     #include "createTime.H"
     #include "createMeshes.H"
+    pimpleMultiRegionControl pimples(fluidRegions, pcmRegions);
+
     #include "createFields.H"
     #include "initContinuityErrs.H"
-    pimpleMultiRegionControl pimples(fluidRegions, pcmRegions);
     #include "createFluidPressureControls.H"
     #include "createPCMPressureControls.H"
     #include "createTimeControls.H"

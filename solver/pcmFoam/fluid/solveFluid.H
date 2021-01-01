@@ -10,7 +10,7 @@ else
     }
 
     #include "UEqn.H"
-    #include "YEqn.H"
+    //~ #include "YEqn.H"
     #include "EEqn.H"
 
     // --- PISO loop

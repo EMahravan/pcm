@@ -75,10 +75,8 @@ public:
         //- Correct the transport and interface properties
         virtual void correct()
         {
-            Info<<"incompressibleTwoPhaseMixturePCM::correct();"<<endl;
-            int dum; cin>>dum;
             incompressibleTwoPhaseMixture::correct();
-            Info<<"interfaceProperties::correct();"<<endl;
+
             interfaceProperties::correct();
         }
 

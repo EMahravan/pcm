@@ -1,3 +1,4 @@
+pimpleMultiRegionControl pimplesPCM(pcmRegions, fluidRegions);
 fvMesh& mesh=pcmRegions[0];
 Info<< "Reading transportProperties\n" << endl;
 
@@ -70,8 +71,8 @@ const dimensionedScalar& rhoPCM2 = mixturePCM.rho2();
 const volScalarField& nuPCM = mixturePCM.nu();
 const volScalarField& kPCM = mixturePCM.k();
 const volScalarField& LPCM = mixturePCM.L();
-Info<<"kPCM name is"<<kPCM.name()<<endl;
-int dum; cin>>dum;
+
+
 // Need to store rho for ddt(rho, U)
 volScalarField rhoPCM
 (
@@ -148,7 +149,7 @@ volScalarField pPCM
 (
     IOobject
     (
-        "pPCM",
+        "p",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -159,14 +160,19 @@ volScalarField pPCM
 
 label pRefCell = 0;
 scalar pRefValue = 0.0;
-/*setRefCell
-(
-    pPCM,
-    p_rghPCM,
-    pimples.pimple(0),
-    pRefCell,
-    pRefValue
-);*///This leads to compile error since pimple is not yet defined
+
+{
+
+Info<<pimplesPCM.pimple(0).dict()<<endl;
+    setRefCell
+    (
+        pPCM,
+        p_rghPCM,
+        pimplesPCM.pimple(0).dict(),
+        pRefCell,
+        pRefValue
+    );//This leads to compile error since pimple is not yet defined
+}
 
 if (p_rghPCM.needReference())
 {
@@ -176,6 +182,7 @@ if (p_rghPCM.needReference())
         pPCM.dimensions(),
         pRefValue - getRefCellValue(pPCM, pRefCell)
     );
+    
     p_rghPCM = pPCM - rhoPCM*ghPCM;
 }
 
@@ -188,3 +195,4 @@ if (!fvOptionsPCM.optionList::size())
 {
     Info << "No finite volume options present" << endl;
 }
+

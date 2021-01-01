@@ -21,7 +21,7 @@
 
     fv::options& fvOptions = fvOptionsPCM;
 
-    pimpleNoLoopControl& pimple = pimples.pimple(i);
+    pimpleNoLoopControl& pimple = pimplesPCM.pimple(i);
 
     pressureControl& pressureControl = pressureControlPCM[i];
 

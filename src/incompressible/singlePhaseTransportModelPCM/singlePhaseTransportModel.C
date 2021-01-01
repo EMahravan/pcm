@@ -82,7 +82,6 @@ Foam::singlePhaseTransportModel::nu(const label patchi) const
 
 void Foam::singlePhaseTransportModel::correct()
 {
-    Info<<"Correeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeect singlePhaseTransportMoodel.C"<<endl;
     viscosityModelPCMPtr_->correct();
 }
 

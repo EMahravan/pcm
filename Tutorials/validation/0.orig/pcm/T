@@ -10,7 +10,7 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    location    "0/fluid";
+    location    "0/pcm";
     object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -25,6 +25,7 @@ boundaryField
     
     pcmRight
     {
+        //~ type            zeroGradient;
         type            codedMixed;
 
         refValue        uniform INITIALTEMPERATURE;
@@ -36,12 +37,13 @@ boundaryField
         code
         #{
             const volScalarField& kappa=this->db().lookupObject<volScalarField>("kappa");
-            dimensionedScalar q("heatFlux",dimEnergy/dimArea,HEATFLUX);
-            Info<<"q="<<q<<endl;
+            
+            scalar q=HEATFLUX;
+
             Info<<"kappa="<<kappa.boundaryField()[this->patch().index()]<<endl;
             
             this->refValue() =0;
-            this->refGrad() = q.value()/(kappa.boundaryField()[this->patch().index()]);
+            this->refGrad() = q/(kappa.boundaryField()[this->patch().index()]);
             this->valueFraction() = 0.0;
         #};
 
