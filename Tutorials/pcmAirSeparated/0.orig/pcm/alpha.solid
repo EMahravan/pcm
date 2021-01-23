@@ -1,0 +1,161 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0/pcm";
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [ 0 0 0 0 0 0 0 ];
+
+internalField   uniform 1;
+
+boundaryField
+{
+       #includeEtc "caseDicts/setConstraintTypes"
+    
+    pcmRight
+    {
+        type            codedFixedValue;
+
+        value        uniform 1;
+
+        name    alpha;   // name of generated BC
+
+        code
+        #{
+            const volScalarField& alpha1 = this->db().lookupObject<volScalarField>("alpha.solid");
+            const volScalarField& T      = this->db().lookupObject<volScalarField>("T");
+                
+            const fvPatchScalarField& alpha1p = alpha1.boundaryField()[this->patch().index()];
+            const fvPatchScalarField& Tp      = T.boundaryField()[this->patch().index()];
+            
+            scalarField alphaBoundaryValue(alpha1p.size(),-1);
+            
+            forAll(alpha1p, facei)
+            {
+                if(Tp[facei]<TSOLID)
+                    alphaBoundaryValue[facei]=1.;
+                else if(Tp[facei]<=TLIQUID)
+                    alphaBoundaryValue[facei]=(TLIQUID-Tp[facei])/(TLIQUID-TSOLID);
+                else
+                    alphaBoundaryValue[facei]=0.;
+            }
+            
+            operator==(alphaBoundaryValue);
+        #};
+    }
+   
+    pcmTop
+    {
+        type            codedFixedValue;
+
+        value        uniform 1;
+
+        name    alpha;   // name of generated BC
+
+        code
+        #{
+            const volScalarField& alpha1 = this->db().lookupObject<volScalarField>("alpha.solid");
+            const volScalarField& T      = this->db().lookupObject<volScalarField>("T");
+                
+            const fvPatchScalarField& alpha1p = alpha1.boundaryField()[this->patch().index()];
+            const fvPatchScalarField& Tp      = T.boundaryField()[this->patch().index()];
+            
+            scalarField alphaBoundaryValue(alpha1p.size(),-1);
+            
+            forAll(alpha1p, facei)
+            {
+                if(Tp[facei]<TSOLID)
+                    alphaBoundaryValue[facei]=1.;
+                else if(Tp[facei]<=TLIQUID)
+                    alphaBoundaryValue[facei]=(TLIQUID-Tp[facei])/(TLIQUID-TSOLID);
+                else
+                    alphaBoundaryValue[facei]=0.;
+            }
+            
+            operator==(alphaBoundaryValue);
+        #};
+    }
+   
+    pcmBottom
+    {
+        type            codedFixedValue;
+
+        value        uniform 1;
+
+        name    alpha;   // name of generated BC
+
+        code
+        #{
+            const volScalarField& alpha1 = this->db().lookupObject<volScalarField>("alpha.solid");
+            const volScalarField& T      = this->db().lookupObject<volScalarField>("T");
+                
+            const fvPatchScalarField& alpha1p = alpha1.boundaryField()[this->patch().index()];
+            const fvPatchScalarField& Tp      = T.boundaryField()[this->patch().index()];
+            
+            scalarField alphaBoundaryValue(alpha1p.size(),-1);
+            
+            forAll(alpha1p, facei)
+            {
+                if(Tp[facei]<TSOLID)
+                    alphaBoundaryValue[facei]=1.;
+                else if(Tp[facei]<=TLIQUID)
+                    alphaBoundaryValue[facei]=(TLIQUID-Tp[facei])/(TLIQUID-TSOLID);
+                else
+                    alphaBoundaryValue[facei]=0.;
+            }
+            
+            operator==(alphaBoundaryValue);
+        #};
+    }
+    
+    pcm_to_air
+    {
+        type            codedFixedValue;
+
+        value        uniform 1;
+
+        name    alpha;   // name of generated BC
+
+        code
+        #{
+            const volScalarField& alpha1 = this->db().lookupObject<volScalarField>("alpha.solid");
+            const volScalarField& T      = this->db().lookupObject<volScalarField>("T");
+                
+            const fvPatchScalarField& alpha1p = alpha1.boundaryField()[this->patch().index()];
+            const fvPatchScalarField& Tp      = T.boundaryField()[this->patch().index()];
+            
+            scalarField alphaBoundaryValue(alpha1p.size(),-1);
+            
+            forAll(alpha1p, facei)
+            {
+                if(Tp[facei]<TSOLID)
+                    alphaBoundaryValue[facei]=1.;
+                else if(Tp[facei]<=TLIQUID)
+                    alphaBoundaryValue[facei]=(TLIQUID-Tp[facei])/(TLIQUID-TSOLID);
+                else
+                    alphaBoundaryValue[facei]=0.;
+            }
+            
+            operator==(alphaBoundaryValue);
+        #};
+    }
+    
+    frontAndBack
+    { 
+        type            empty;
+    }
+}
+
+// ************************************************************************* //
+

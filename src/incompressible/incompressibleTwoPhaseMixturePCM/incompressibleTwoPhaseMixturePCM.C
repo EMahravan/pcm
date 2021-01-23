@@ -53,7 +53,27 @@ void Foam::incompressibleTwoPhaseMixture::calcNu()
 
     nu_ = mu()/(limitedAlpha1*rho1_ + (scalar(1) - limitedAlpha1)*rho2_);
 
-    k_  == (limitedAlpha1*k1_ + (scalar(1) - limitedAlpha1)*k2_);
+    k_  = (limitedAlpha1*k1_ + (scalar(1) - limitedAlpha1)*k2_);
+    
+        
+    const volScalarField::Boundary& limitedAlpha1bf = limitedAlpha1.boundaryField();
+    const volScalarField::Boundary& alpha1bf = alpha1_.boundaryField();
+    volScalarField::Boundary& kbf = k_.boundaryFieldRef();
+
+    forAll(kbf, patchi)
+    {
+        const fvPatchScalarField& alpha1p = alpha1bf[patchi];
+        const fvPatchScalarField& limitedAlpha1p = limitedAlpha1bf[patchi];
+        fvPatchScalarField& kp = kbf[patchi];
+        
+        forAll(kp, facei)
+        {
+            kp[facei]=(limitedAlpha1p[facei]*k1_.value() + (scalar(1) - limitedAlpha1p[facei])*k2_.value());
+            
+            Info<<"kp["<<facei<<"]="<<kp[facei]<<"    limitedAlpha1p="<<limitedAlpha1p[facei]<<"    alpha1p="<<alpha1p[facei]<<endl;
+        }
+        
+    }
 
     L_ = (limitedAlpha1*L1_ + (scalar(1) - limitedAlpha1)*L2_);
 
@@ -61,16 +81,17 @@ void Foam::incompressibleTwoPhaseMixture::calcNu()
         const volScalarField& T = nu_.mesh().lookupObject<volScalarField>("T");
 
         const dimensionedScalar deltaT2=(T2_-T1_)*(T2_-T1_);
-
+        const dimensionedScalar Tm=(T2_+T1_)/2;
+ 
         const dimensionedScalar dnom=Foam::sqrt(deltaT2*Foam::acos(-1.));
 
         volScalarField DL=Foam::exp(
-                                      -Foam::pow( (T-T1_+dimensionedScalar("SMALL",T.dimensions(),SMALL)),2)
+                                      -Foam::pow( (T-Tm+dimensionedScalar("SMALL",T.dimensions(),SMALL)),2)
                                       /deltaT2 
                                     )
                                     /(dnom)*L_;//In the second ref Eq. 9: \landa D        
         Cp_ = 
-                (limitedAlpha1*(rho1_*cp1_) + (scalar(1) - limitedAlpha1)*(rho2_*cp2_))+
+                (limitedAlpha1*(rho1_*cp1_) + (scalar(1) - limitedAlpha1)*(rho2_*cp2_));
                 (limitedAlpha1* rho1_       + (scalar(1) - limitedAlpha1)*rho2_       )*DL;//Discuss this one
 
     }
@@ -152,7 +173,9 @@ Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
         (
             "Cp",
             U_.time().timeName(),
-            U_.db()
+            U_.db(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
         ),
         U_.mesh(),
         dimensionedScalar(dimEnergy/dimMass/dimTemperature*dimDensity, 0),
@@ -164,7 +187,9 @@ Foam::incompressibleTwoPhaseMixture::incompressibleTwoPhaseMixture
         (
             "kappa",
             U_.time().timeName(),
-            U_.db()
+            U_.db(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
         ),
         U_.mesh(),
         dimensionedScalar(dimPower/dimLength/dimTemperature, 0),

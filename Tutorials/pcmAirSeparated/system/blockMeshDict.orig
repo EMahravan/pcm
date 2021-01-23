@@ -1,0 +1,115 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+vertices
+(
+    (XMINaIR YMINaIR ZMIN)//0
+    (XMAXaIR YMINaIR ZMIN)//1
+    (XMAXaIR YMAXaIR ZMIN)//2
+    (XMINaIR YMAXaIR ZMIN)//3
+    (XMINaIR YMINaIR ZMAX)//4
+    (XMAXaIR YMINaIR ZMAX)//5
+    (XMAXaIR YMAXaIR ZMAX)//6
+    (XMINaIR YMAXaIR ZMAX)//7
+    (XMAXpCM YMINpCM ZMIN)//8//pCM
+    (XMAXpCM YMAXpCM ZMIN)//9//pCM
+    (XMAXpCM YMINpCM ZMAX)//10//pCM
+    (XMAXpCM YMAXpCM ZMAX)//11//pCM
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) air   ( NxAir  NyAir 1) simpleGrading (0.25 1 1)
+    hex (1 8 9 2 5 10 11 6) pcm ( NxPCM  NyPCM 1) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+
+boundary
+(
+    airLeft
+    {
+        type wall;
+        faces
+        (
+            (0 3 7 4)
+        );
+    }
+    airBottom
+    {
+        type wall;
+        faces
+        (
+            (0 1 5 4)
+        );
+    }
+
+    airTop
+    {
+        type patch;
+        faces
+        (
+            (7 6 2 3)
+        );
+    }
+    pcmRight
+    {
+        type wall;
+        faces
+        (
+            (8 9 11 10)
+        );
+    }
+    pcmTop
+    {
+        type wall;
+        faces
+        (
+            (9 2 6 11)
+        );
+    }
+    pcmBottom
+    {
+        type wall;
+        faces
+        (
+            (1 8 10 5)
+        );
+    }
+    frontAndBack
+    {
+        type empty;
+        faces
+        (
+            (0 1 2 3)
+            (4 5 6 7)
+            (1 8 9 2)
+            (5 10 11 6)
+        );
+    }
+   
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

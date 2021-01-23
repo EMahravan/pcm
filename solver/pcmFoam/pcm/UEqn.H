@@ -23,7 +23,7 @@
                 mesh,
                 IOobject::READ_IF_PRESENT
             ),
-            Foam::sqr(1.-alpha1)/(Foam::pow(alpha1,3)+0.001)*Amush*U//In the second Ref it's negetive
+            -Foam::sqr(alpha1)/(Foam::pow(1-alpha1,3)+0.001)*Amush*U//In the second Ref it's negetive
         )
     );
     
